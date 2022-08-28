@@ -13,15 +13,15 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HomeCubit()..start(),
-      child: BlocBuilder<HomeCubit, HomeState>(
-        builder: (context, state) {
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Do kupienia:'),
-            ),
-            floatingActionButton: FloatingActionButton(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Do kupienia:'),
+      ),
+      floatingActionButton: BlocProvider(
+        create: (context) => HomeCubit(),
+        child: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            return FloatingActionButton(
               onPressed: () {
                 context.read<HomeCubit>().add(
                       controller: controller.text,
@@ -31,50 +31,48 @@ class HomePage extends StatelessWidget {
               child: const Icon(
                 Icons.add,
               ),
-            ),
-            body: BlocProvider(
-              create: (context) => HomeCubit()..start(),
-              child: BlocBuilder<HomeCubit, HomeState>(
-                builder: (context, state) {
-                  if (state.errorMessage.isNotEmpty) {
-                    return Center(
-                      child: Text(
-                        'Wystąpił nieoczekiwany problem: ${state.errorMessage}',
-                      ),
-                    );
-                  }
-                  if (state.isLoading) {
-                    return const Center(
-                      child: Text('Proszę czekać trwa ładowanie danych'),
-                    );
-                  }
-                  final documents = state.documents;
+            );
+          },
+        ),
+      ),
+      body: BlocProvider(
+        create: (context) => HomeCubit()..start(),
+        child: BlocBuilder<HomeCubit, HomeState>(
+          builder: (context, state) {
+            if (state.errorMessage.isNotEmpty) {
+              return Center(
+                child: Text(
+                  'Wystąpił nieoczekiwany problem: ${state.errorMessage}',
+                ),
+              );
+            }
+            if (state.isLoading) {
+              return const Center(
+                child: Text('Proszę czekać trwa ładowanie danych'),
+              );
+            }
+            final documents = state.documents;
 
-                  return ListView(
-                    children: [
-                      for (final document in documents) ...[
-                        Dismissible(
-                          key: ValueKey(document.id),
-                          onDismissed: (_) {
-                            context
-                                .read<HomeCubit>()
-                                .delete(document: document.id);
-                          },
-                          child: CategoryWidget(
-                            document['title'],
-                          ),
-                        ),
-                      ],
-                      TextField(
-                        controller: controller,
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          );
-        },
+            return ListView(
+              children: [
+                for (final document in documents) ...[
+                  Dismissible(
+                    key: ValueKey(document.id),
+                    onDismissed: (_) {
+                      context.read<HomeCubit>().delete(document: document.id);
+                    },
+                    child: CategoryWidget(
+                      document['title'],
+                    ),
+                  ),
+                ],
+                TextField(
+                  controller: controller,
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }
