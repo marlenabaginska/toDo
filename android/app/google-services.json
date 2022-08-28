@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "401305872671",
+    "project_id": "wydatki-75014",
+    "storage_bucket": "wydatki-75014.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401305872671:android:7e03dbee01076e2f57682a",
+        "android_client_info": {
+          "package_name": "com.marlenabaginska.wydatki"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401305872671-63qb4esa2lndk2osltdf0umk6dv4i5ko.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCEgQ5CWSv8TMLLsyrgS_cdtJuVDtkpy-8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401305872671-63qb4esa2lndk2osltdf0umk6dv4i5ko.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
